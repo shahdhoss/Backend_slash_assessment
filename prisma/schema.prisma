@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model users{
+  id BigInt @default(autoincrement()) @id
+  name String
+  email  String   @unique
+  password String
+  address String?
+  phone String?
+  order orders[] //one to many relationship between users and orders
+  cart    carts? //one to one relationship between users and carts
+  location userLocations[]
+  product usersOnProducts[]
+}
+model products{
+  id BigInt @default(autoincrement()) @id
+  name String  @unique
+  description String
+  price Int
+  stock Int
+  image_url String
+  order  ordersOnProducts[] // addressing the many to many relationships
+  user usersOnProducts[]
+  cart cartsOnProducts[]
+}
+model usersOnProducts{ //many to many relationship between users and products
+  user users @relation(fields: [userId],references: [id])
+  userId BigInt
+  product products @relation(fields:[productId],references: [id])
+  productId BigInt
+  @@id([userId,productId])
+}
+model orders{
+  id BigInt @default(autoincrement()) @id
+  orderDate DateTime @default(now())
+  arrivalDate DateTime?
+  status Int
+  cost Int
+  product ordersOnProducts[] //many to many relationship between orders and products
+  userId BigInt
+  user users @relation(fields: [userId], references: [id]) //one to many relationship between user and orders
+}
+model ordersOnProducts{ //many to many relationship between orders and products
+  order orders @relation(fields: [orderId],references: [id])
+  orderId BigInt
+  product products @relation(fields:[productId],references: [id])
+  productId BigInt
+  @@id([orderId,productId])
+}
+model carts{
+  id BigInt @default(autoincrement()) @id
+  userId BigInt @unique
+  product cartsOnProducts[]
+  user users @relation(fields: [userId], references: [id]) //one to one relationship between user and cart
+}
+model cartsOnProducts{ //many to many relationship between carts and products
+  cart carts @relation(fields: [cartId],references: [id])
+  cartId BigInt
+  product products @relation(fields:[productId],references: [id])
+  productId BigInt
+  @@id([cartId,productId])
+}
+model userLocations{ //multivalued attribute
+  userId BigInt 
+  user users @relation(fields:[userId],references:[id])
+  location String @id
+}
+

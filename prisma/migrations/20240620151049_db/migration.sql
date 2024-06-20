@@ -62,6 +62,7 @@ CREATE TABLE "carts" (
 CREATE TABLE "cartsOnProducts" (
     "cartId" BIGINT NOT NULL,
     "productId" BIGINT NOT NULL,
+    "quantity" INTEGER NOT NULL,
 
     CONSTRAINT "cartsOnProducts_pkey" PRIMARY KEY ("cartId","productId")
 );

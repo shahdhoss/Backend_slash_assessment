@@ -70,6 +70,7 @@ model cartsOnProducts{ //many to many relationship between carts and products
   cartId BigInt
   product products @relation(fields:[productId],references: [id])
   productId BigInt
+  quantity Int
   @@id([cartId,productId])
 }
 model userLocations{ //multivalued attribute

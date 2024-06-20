@@ -110,3 +110,18 @@ ALTER TABLE "cartsOnProducts" ADD CONSTRAINT "cartsOnProducts_productId_fkey" FO
 
 -- AddForeignKey
 ALTER TABLE "userLocations" ADD CONSTRAINT "userLocations_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- CREATE OR REPLACE FUNCTION create_cart_for_new_user()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--     INSERT INTO "carts" ("userId")
+--     VALUES (NEW.id);
+--     RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- -- Create the trigger
+-- CREATE TRIGGER after_user_insert
+-- AFTER INSERT ON "users"
+-- FOR EACH ROW
+-- EXECUTE FUNCTION create_cart_for_new_user();

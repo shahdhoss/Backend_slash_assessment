@@ -1,16 +1,15 @@
-## Getting Started
+# Backend Slash Assessment
+This project is built using NestJS and Prisma with a PostgreSQL database.
+# Getting Started
 
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
+# Prerequisites
+* Node.js and npm: Ensure you have Node.js and npm installed on your system. You can download them from nodejs.org.
+* PostgreSQL: Ensure you have PostgreSQL installed and running on your system.
 
--Node.js and npm: Ensure you have Node.js and npm installed on your system. You can download them from nodejs.org.
--PostgreSQL: Ensure you have PostgreSQL installed and running on your system.
-
-### Installation
-
+# Installation
 Please follow the following steps for successful installation:
-
 1. **Clone the Repository:** Get started by cloning the repository to your local machine.
 
    ```
@@ -28,3 +27,5 @@ Please follow the following steps for successful installation:
    ```sh
    https://localhost:3000/api
    ```
+# Notes
+You can find each main entity's MVCs separated in a folder. Make sure you are connected to the database before running any tests 

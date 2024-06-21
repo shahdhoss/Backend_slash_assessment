@@ -1,7 +1,6 @@
 import { Body, Controller,Param,Post,Get, Put,ParseIntPipe} from '@nestjs/common';
 import { OrderServiceService } from '../order_service/order_service.service';
-import { userInfo } from 'os';
-import { order_id, update_status } from '../dtos/update_status';
+import { apply_coupon, update_status } from '../dtos/update_status';
 
 @Controller('orders')
 export class OrderControllerController {
@@ -22,5 +21,10 @@ export class OrderControllerController {
         const {orderId ,status }=params
         this.orderService.update_order_status(orderId,status)
     }
-    
+
+    @Post('apply-coupon')
+    async apply_coupon(@Body() params:apply_coupon){
+        const {percentage,userId}=params
+        this.orderService.apply_coupon(percentage,userId)
+    }
 }

@@ -57,4 +57,13 @@ export class OrderServiceService {
     async update_order_status(order_id:number, status:string){
         await this.prisma.$executeRaw`update orders set status = ${status} where id = ${order_id}`
     }
+
+    async apply_coupon(percentage: number, user_id: number) {
+        const discountFactor = percentage / 100;
+        await this.prisma.$executeRaw`
+            update orders
+            set cost = cost - (cost * ${discountFactor})
+            where "userId" = ${user_id};
+        `;
+    }
 }

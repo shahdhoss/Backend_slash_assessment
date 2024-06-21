@@ -10,8 +10,11 @@ export class update_status {
     status: string;
 }
 
-export class order_id{
+export class apply_coupon{
     @IsInt()
     @IsNotEmpty()
-    orderId:number
+    percentage: number;
+    @IsInt()
+    @IsNotEmpty()
+    userId: number;
 }

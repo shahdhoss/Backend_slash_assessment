@@ -4,7 +4,8 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This project requires npm to be installed in your system.
+-Node.js and npm: Ensure you have Node.js and npm installed on your system. You can download them from nodejs.org.
+-PostgreSQL: Ensure you have PostgreSQL installed and running on your system.
 
 ### Installation
 

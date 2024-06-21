@@ -46,7 +46,7 @@ model orders{
   id BigInt @default(autoincrement()) @id
   orderDate DateTime @default(now())
   arrivalDate DateTime?
-  status Int
+  status String
   cost Int
   product ordersOnProducts[] //many to many relationship between orders and products
   userId BigInt

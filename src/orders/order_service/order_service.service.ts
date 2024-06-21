@@ -10,7 +10,6 @@ export class OrderServiceService {
         const cart = await this.prisma.$queryRaw<{ id: number }[]>`select id from carts where"userId" = ${user_id}`
         if (cart.length > 0) {
           const cart_id = cart[0].id;
-          console.log(cart_id);
           return cart_id;
         } else {
           throw new Error(`Cart not found for userId: ${user_id}`);
@@ -28,10 +27,7 @@ export class OrderServiceService {
             const result = await this.prisma.$queryRaw<{ price: number }[]>`select price from products where id=${productIds[i]}`
                 if (result.length > 0) {
                     const cost = result[0].price; 
-                    console.log("cost is: ", cost)
-                    console.log("quantities: ",quantities[i])
                     total += (cost * quantities[i]);
-                    console.log("total: ", total)
                 }
             }
         const insertedOrder = await this.prisma.$queryRaw<{ id: number }[]>`insert into orders (status ,"userId", cost) values (${'placed'},${user_id}, ${total})

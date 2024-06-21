@@ -29,14 +29,14 @@ export class CartServiceService {
     }
       
     async view_cart(user_id: number): Promise<string> {
+      console.log(user_id)
         const products = await this.prisma.$queryRaw<{ name: string }[]>`
         select products.name from products where products.id in 
         (select "productId" from "cartsOnProducts" where "cartId" in (select carts.id from carts where "userId" = ${user_id}::bigint))`;
         const productNames = products.map(product => product.name);
         const result = productNames.join(', ');
-        console.log(result);
         return result;
-      }
+    }
 
     async update_cart(user_id:number,product_id:number,new_quantity:number){
         const cart_id = await this.get_cart_byUserId(user_id)

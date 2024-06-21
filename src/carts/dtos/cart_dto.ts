@@ -3,10 +3,10 @@ import { IsIn, IsInt, IsNotEmpty, IsNumber } from "class-validator"
 export class add_to_cart{
     @IsInt()
     @IsNotEmpty()
-    userId:number
+    productId:number
     @IsInt()
     @IsNotEmpty()
-    productId:number
+    userId:number
     @IsInt()
     @IsNotEmpty()
     quantity:number

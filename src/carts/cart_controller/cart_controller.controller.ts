@@ -8,8 +8,8 @@ export class CartControllerController {
     @Post('add')
     @UsePipes(ValidationPipe)
     async add_to_cart(@Body() params:add_to_cart){
-        const { userId, productId,quantity } = params
-        this.cartService.add_to_cart(userId,productId,quantity)
+        const {productId,userId,quantity } = params
+        this.cartService.add_to_cart(productId,userId,quantity)
     }
 
     @Get(':userId')
@@ -19,7 +19,7 @@ export class CartControllerController {
 
     @Put('update') 
     async updateCart(@Body() params: add_to_cart){
-        const {userId,productId, quantity } = params
+        const {productId, userId,quantity } = params
         await this.cartService.update_cart(userId,productId,quantity)
     }
 

@@ -15,6 +15,7 @@ export class CartServiceService {
           throw new Error(`Cart not found for userId: ${user_id}`);
         }
       }
+
     async add_to_cart(product_id: number, user_id: number, quantity: number): Promise<void> {
         try {
           const cart_id = await this.get_cart_byUserId(user_id);
@@ -36,14 +37,17 @@ export class CartServiceService {
         console.log(result);
         return result;
       }
-    update_cart(user_id:number,product_id:number,new_quantity:number){
-        const cart_id=this.get_cart_byUserId(user_id)
-        this.prisma.$executeRaw `update "cartsOnProducts"
+
+    async update_cart(user_id:number,product_id:number,new_quantity:number){
+        const cart_id = await this.get_cart_byUserId(user_id)
+        await this.prisma.$executeRaw `update "cartsOnProducts"
         set quantity = ${new_quantity}
         where "cartId" = ${cart_id} and "productId" = ${product_id}`
     }
-    remove_from_cart(user_id:number,product_id:number){
-        const cart_id=this.get_cart_byUserId(user_id)
-        this.prisma.$executeRaw `delete from "cartsOnProducts" where "cartId" = ${cart_id} and "productId" =${product_id}`
-    }   
+
+    async remove_from_cart(user_id:number,product_id:number){
+        const cart_id= await this.get_cart_byUserId(user_id)
+        await this.prisma.$executeRaw `delete from "cartsOnProducts" where "cartId" = ${cart_id} and "productId" =${product_id}`
+    }  
+
 }

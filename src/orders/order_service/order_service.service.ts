@@ -16,12 +16,12 @@ export class OrderServiceService {
         }
       }
 
-    async calculate_total(product_ids,quantities){
+    async calculate_total(product_ids:number[],quantities:number[]):Promise<number>{
         let total = 0;
         for (let i = 0; i < product_ids.length; i++) {
             const result = await this.prisma.$queryRaw<{ price: number }[]>`select price from products where id=${product_ids[i]}`
                 if (result.length > 0) {
-                    const cost = result[0].price as number; 
+                    const cost = result[0].price; 
                     total = total+(cost * quantities[i]);
                 }
             }
